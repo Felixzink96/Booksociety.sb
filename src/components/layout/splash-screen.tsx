@@ -5,16 +5,20 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 
 export function SplashScreen() {
-  const [visible, setVisible] = useState(false);
+  // Start visible by default so splash shows immediately (no flash of page content)
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
     const seen = sessionStorage.getItem("splash-seen");
-    if (!seen) {
-      setVisible(true);
-      const timer = setTimeout(() => dismiss(), 2800);
-      return () => clearTimeout(timer);
+    if (seen) {
+      // Already seen this session - hide immediately
+      setVisible(false);
+      return;
     }
+    // First visit - show splash then auto-dismiss
+    const timer = setTimeout(() => dismiss(), 2800);
+    return () => clearTimeout(timer);
   }, []);
 
   function dismiss() {
