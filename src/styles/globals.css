@@ -31,12 +31,24 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background-color: #F4C2C2;
+  color: #2D2D2D;
+}
+
 @layer base {
   body {
     @apply bg-cream text-charcoal font-body;
   }
   h1, h2, h3, h4 {
     @apply font-display;
+  }
+  a, button, [role="button"] {
+    cursor: pointer;
   }
 }
 
