@@ -82,7 +82,7 @@ export default async function FormatDetailPage({ params }: PageProps) {
   }
 
   return (
-    <section className="py-20">
+    <section className="pt-24 pb-20">
       <div className="mx-auto max-w-3xl px-6">
         {/* Back link */}
         <SectionReveal>

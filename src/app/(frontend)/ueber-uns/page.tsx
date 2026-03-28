@@ -40,7 +40,7 @@ export default function UeberUnsPage() {
     <>
       <FaqJsonLd items={faqItems} />
       {/* Geschichte */}
-      <section className="bg-warm-sand/30 py-20 relative overflow-hidden">
+      <section className="bg-warm-sand/30 pt-24 pb-20 relative overflow-hidden">
         <BotanicalLine
           variant="branch-left"
           className="absolute top-0 left-0 opacity-30 hidden lg:block"

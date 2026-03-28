@@ -44,7 +44,7 @@ export default async function EventsPage({ searchParams }: PageProps) {
   return (
     <>
       {/* Hero section */}
-      <section className="bg-warm-sand/30 py-20">
+      <section className="bg-warm-sand/30 pt-24 pb-20">
         <div className="mx-auto max-w-5xl px-6">
           <SectionReveal className="text-center mb-8">
             <h1 className="text-4xl md:text-5xl font-display font-bold text-wine mb-4">

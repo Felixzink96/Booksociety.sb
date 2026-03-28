@@ -44,7 +44,7 @@ export default async function FormatePage() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-warm-sand/30 py-20">
+      <section className="bg-warm-sand/30 pt-24 pb-20">
         <div className="mx-auto max-w-5xl px-6 text-center">
           <SectionReveal>
             <h1 className="text-4xl md:text-5xl font-display font-bold text-wine mb-4">
