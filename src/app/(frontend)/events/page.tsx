@@ -5,9 +5,9 @@ import { EventCard } from "@/components/events/event-card";
 import { EventFilter } from "@/components/events/event-filter";
 
 export const metadata: Metadata = {
-  title: "Events – Booksociety Saarbruecken",
+  title: "Events – Booksociety Saarbrücken",
   description:
-    "Alle kommenden und vergangenen Events der Booksociety Saarbruecken: Lesekreis, Buechertausch, Leseabende und mehr.",
+    "Alle kommenden und vergangenen Events der Booksociety Saarbrücken: Lesekreis, Büchertausch, Leseabende und mehr.",
 };
 
 interface PageProps {
@@ -44,15 +44,15 @@ export default async function EventsPage({ searchParams }: PageProps) {
   return (
     <>
       {/* Hero section */}
-      <section className="bg-warm-sand/30 pt-24 pb-20">
+      <section className="bg-warm-sand/30 pt-32 pb-20">
         <div className="mx-auto max-w-5xl px-6">
           <SectionReveal className="text-center mb-8">
             <h1 className="text-4xl md:text-5xl font-display font-bold text-wine mb-4">
               Unsere Events
             </h1>
             <p className="text-charcoal/70 max-w-2xl mx-auto leading-relaxed">
-              Entdecke kommende Treffen, Lesekreise und Buechertausch-Events der
-              Booksociety Saarbruecken. Wir freuen uns auf dich!
+              Entdecke kommende Treffen, Lesekreise und Büchertausch-Events der
+              Booksociety Saarbrücken. Wir freuen uns auf dich!
             </p>
           </SectionReveal>
 

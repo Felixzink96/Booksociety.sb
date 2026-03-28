@@ -6,9 +6,9 @@ import { SectionReveal } from "@/components/ui/section-reveal";
 import { FormatIcon } from "@/components/events/format-icon";
 
 export const metadata: Metadata = {
-  title: "Formate – Booksociety Saarbruecken",
+  title: "Formate – Booksociety Saarbrücken",
   description:
-    "Unsere Formate: Lesekreis, Buechertausch, Leseabende und mehr. Entdecke, wie du bei der Booksociety Saarbruecken mitmachen kannst.",
+    "Unsere Formate: Lesekreis, Büchertausch, Leseabende und mehr. Entdecke, wie du bei der Booksociety Saarbrücken mitmachen kannst.",
 };
 
 const colorStyles: Record<string, { bg: string; text: string; icon: string }> = {
@@ -44,14 +44,14 @@ export default async function FormatePage() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-warm-sand/30 pt-24 pb-20">
+      <section className="bg-warm-sand/30 pt-32 pb-20">
         <div className="mx-auto max-w-5xl px-6 text-center">
           <SectionReveal>
             <h1 className="text-4xl md:text-5xl font-display font-bold text-wine mb-4">
               Unsere Formate
             </h1>
             <p className="text-charcoal/70 max-w-2xl mx-auto leading-relaxed">
-              Bei der Booksociety Saarbruecken gibt es verschiedene Wege, Buecher
+              Bei der Booksociety Saarbrücken gibt es verschiedene Wege, Bücher
               gemeinsam zu erleben. Finde das Format, das zu dir passt.
             </p>
           </SectionReveal>
@@ -65,7 +65,7 @@ export default async function FormatePage() {
             <SectionReveal>
               <div className="rounded-2xl bg-white p-10 text-center shadow-sm">
                 <p className="text-charcoal/60">
-                  Formate werden bald hinzugefuegt. Schau bald wieder vorbei!
+                  Formate werden bald hinzugefügt. Schau bald wieder vorbei!
                 </p>
               </div>
             </SectionReveal>

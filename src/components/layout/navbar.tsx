@@ -34,7 +34,7 @@ export function Navbar() {
       {/* Floating Navbar */}
       <header className="fixed top-4 left-1/2 -translate-x-1/2 z-40 w-[calc(100%-2rem)] max-w-6xl">
         <nav
-          className={`flex items-center justify-between px-4 sm:px-6 h-14 rounded-2xl border transition-all duration-500 ${
+          className={`flex items-center justify-between px-4 sm:px-6 h-16 rounded-2xl border transition-all duration-500 ${
             scrolled
               ? "bg-white/80 backdrop-blur-xl border-rose/20 shadow-lg shadow-rose/5"
               : "bg-white/60 backdrop-blur-md border-white/30 shadow-md shadow-black/5"
@@ -45,9 +45,9 @@ export function Navbar() {
             <Image
               src="/logos/logo-transparent.webp"
               alt="Booksociety Saarbrücken"
-              width={36}
-              height={36}
-              className="h-9 w-9 rounded-full object-cover"
+              width={44}
+              height={44}
+              className="h-11 w-11 rounded-full object-cover"
               priority
             />
             <span className="font-display text-lg text-charcoal hidden sm:block">booksociety</span>

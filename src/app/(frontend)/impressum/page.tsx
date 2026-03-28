@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 
 export default function ImpressumPage() {
   return (
-    <section className="pt-24 pb-20">
+    <section className="pt-32 pb-20">
       <div className="mx-auto max-w-3xl px-6">
         <h1 className="text-3xl md:text-4xl font-display font-bold text-charcoal mb-10">
           Impressum

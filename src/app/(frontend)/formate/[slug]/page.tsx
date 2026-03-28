@@ -47,11 +47,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const format = await getFormatBySlug(slug);
     if (!format) return { title: "Format nicht gefunden" };
     return {
-      title: `${format.title} – Booksociety Saarbruecken`,
+      title: `${format.title} – Booksociety Saarbrücken`,
       description: extractPlainText(format.description).slice(0, 160),
     };
   } catch {
-    return { title: "Format – Booksociety Saarbruecken" };
+    return { title: "Format – Booksociety Saarbrücken" };
   }
 }
 
@@ -82,7 +82,7 @@ export default async function FormatDetailPage({ params }: PageProps) {
   }
 
   return (
-    <section className="pt-24 pb-20">
+    <section className="pt-32 pb-20">
       <div className="mx-auto max-w-3xl px-6">
         {/* Back link */}
         <SectionReveal>

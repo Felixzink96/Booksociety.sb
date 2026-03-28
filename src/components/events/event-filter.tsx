@@ -5,7 +5,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 const filters = [
   { label: "Alle", value: "" },
   { label: "Lesekreis", value: "lesekreis" },
-  { label: "Buechertausch", value: "buechertausch" },
+  { label: "Büchertausch", value: "buechertausch" },
   { label: "Leseabend", value: "leseabend" },
   { label: "Sonstiges", value: "sonstiges" },
 ];

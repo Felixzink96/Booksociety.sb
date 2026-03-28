@@ -6,7 +6,7 @@ type EventType = "lesekreis" | "buechertausch" | "leseabend" | "sonstiges";
 
 const typeLabels: Record<EventType, string> = {
   lesekreis: "Lesekreis",
-  buechertausch: "Buechertausch",
+  buechertausch: "Büchertausch",
   leseabend: "Leseabend",
   sonstiges: "Sonstiges",
 };

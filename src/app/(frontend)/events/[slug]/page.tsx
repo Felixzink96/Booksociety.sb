@@ -12,7 +12,7 @@ type EventType = "lesekreis" | "buechertausch" | "leseabend" | "sonstiges";
 
 const typeLabels: Record<EventType, string> = {
   lesekreis: "Lesekreis",
-  buechertausch: "Buechertausch",
+  buechertausch: "Büchertausch",
   leseabend: "Leseabend",
   sonstiges: "Sonstiges",
 };
@@ -36,11 +36,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const event = await getEventBySlug(slug);
     if (!event) return { title: "Event nicht gefunden" };
     return {
-      title: `${event.title} – Booksociety Saarbruecken`,
-      description: `${typeLabels[(event.event_type as EventType) ?? "sonstiges"]} am ${formatDate(event.date as string)} in Saarbruecken.`,
+      title: `${event.title} – Booksociety Saarbrücken`,
+      description: `${typeLabels[(event.event_type as EventType) ?? "sonstiges"]} am ${formatDate(event.date as string)} in Saarbrücken.`,
     };
   } catch {
-    return { title: "Event – Booksociety Saarbruecken" };
+    return { title: "Event – Booksociety Saarbrücken" };
   }
 }
 
@@ -64,7 +64,7 @@ export default async function EventDetailPage({ params }: PageProps) {
   return (
     <>
       <EventJsonLd event={event} />
-      <section className="pt-24 pb-20">
+      <section className="pt-32 pb-20">
       <div className="mx-auto max-w-3xl px-6">
         {/* Back link */}
         <SectionReveal>
