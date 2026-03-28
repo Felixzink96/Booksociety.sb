@@ -32,7 +32,7 @@ export function Navbar() {
   return (
     <>
       {/* Floating Navbar */}
-      <header className="fixed top-4 left-1/2 -translate-x-1/2 z-40 w-[calc(100%-2rem)] max-w-5xl">
+      <header className="fixed top-4 left-1/2 -translate-x-1/2 z-40 w-[calc(100%-2rem)] max-w-6xl">
         <nav
           className={`flex items-center justify-between px-4 sm:px-6 h-14 rounded-2xl border transition-all duration-500 ${
             scrolled
