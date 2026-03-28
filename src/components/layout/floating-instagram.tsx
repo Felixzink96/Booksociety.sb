@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Instagram } from "lucide-react";
+import { InstagramIcon } from "@/components/ui/instagram-icon";
 
 export function FloatingInstagram() {
   const [hovered, setHovered] = useState(false);
@@ -31,7 +31,7 @@ export function FloatingInstagram() {
           background: "linear-gradient(135deg, #f97316, #ec4899, #a855f7)",
         }}
       >
-        <Instagram size={24} />
+        <InstagramIcon className="w-6 h-6" />
       </a>
     </div>
   );

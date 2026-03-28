@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Instagram } from "lucide-react";
+import { InstagramIcon } from "@/components/ui/instagram-icon";
 
 const navLinks = [
   { label: "Startseite", href: "/" },
@@ -60,7 +60,7 @@ export function Footer() {
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors duration-200"
             >
-              <Instagram size={18} />
+              <InstagramIcon className="w-[18px] h-[18px]" />
               <span>@booksociety.sb</span>
             </a>
           </div>

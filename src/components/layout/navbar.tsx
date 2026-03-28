@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X, Instagram } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import { InstagramIcon } from "@/components/ui/instagram-icon";
 
 const navLinks = [
   { label: "Startseite", href: "/" },
@@ -79,7 +80,7 @@ export function Navbar() {
                 aria-label="Instagram"
                 className="text-charcoal/80 hover:text-wine transition-colors duration-200"
               >
-                <Instagram size={20} />
+                <InstagramIcon className="w-5 h-5" />
               </a>
             </nav>
 
@@ -140,7 +141,7 @@ export function Navbar() {
             onClick={() => setMobileOpen(false)}
             className="flex items-center gap-2 text-charcoal/80 hover:text-wine transition-colors duration-200 mt-4"
           >
-            <Instagram size={22} />
+            <InstagramIcon className="w-[22px] h-[22px]" />
             <span className="text-base font-medium">Instagram</span>
           </a>
         </nav>
