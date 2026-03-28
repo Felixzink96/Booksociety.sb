@@ -1,6 +1,27 @@
-import { Instagram, Heart } from "lucide-react";
+import { Heart } from "lucide-react";
 import { SectionReveal, StaggerContainer, StaggerItem } from "@/components/ui/section-reveal";
 import { Button } from "@/components/ui/button";
+
+// Inline SVG for Instagram icon (not available in this version of lucide-react)
+function InstagramIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" />
+    </svg>
+  );
+}
 
 const PLACEHOLDER_CARDS = [0, 1, 2, 3, 4, 5];
 
@@ -27,9 +48,9 @@ export function InstagramFeed() {
                 <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/40 transition-colors duration-300 flex items-center justify-center">
                   <Heart className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 drop-shadow" />
                 </div>
-                {/* Subtle botanical-inspired placeholder pattern */}
+                {/* Subtle placeholder pattern */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-20">
-                  <Instagram className="w-10 h-10 text-wine" />
+                  <InstagramIcon className="w-10 h-10 text-wine" />
                 </div>
               </a>
             </StaggerItem>
@@ -41,7 +62,7 @@ export function InstagramFeed() {
             href="https://instagram.com/booksociety.sb"
             variant="outline"
           >
-            <Instagram className="w-4 h-4" />
+            <InstagramIcon className="w-4 h-4" />
             Auf Instagram folgen
           </Button>
         </SectionReveal>
