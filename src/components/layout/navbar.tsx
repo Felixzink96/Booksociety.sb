@@ -3,11 +3,10 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X } from "lucide-react";
+import { Menu, X, MessageCircle } from "lucide-react";
 import { InstagramIcon } from "@/components/ui/instagram-icon";
 
 const navLinks = [
-  { label: "Startseite", href: "/" },
   { label: "Events", href: "/events" },
   { label: "Formate", href: "/formate" },
   { label: "Über uns", href: "/ueber-uns" },
@@ -18,82 +17,86 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Prevent body scroll when mobile menu is open
   useEffect(() => {
-    if (mobileOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
   const instagramUrl = process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? "https://www.instagram.com/booksociety.sb";
 
   return (
     <>
-      <header
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-          scrolled
-            ? "bg-cream/95 backdrop-blur-md shadow-sm"
-            : "bg-transparent"
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo */}
-            <Link href="/" className="flex-shrink-0">
-              <Image
-                src="/logos/logo-light.png"
-                alt="Booksociety Saarbrücken"
-                width={140}
-                height={40}
-                className="h-10 w-auto"
-                priority
-              />
-            </Link>
+      {/* Floating Navbar */}
+      <header className="fixed top-4 left-1/2 -translate-x-1/2 z-40 w-[calc(100%-2rem)] max-w-5xl">
+        <nav
+          className={`flex items-center justify-between px-4 sm:px-6 h-14 rounded-2xl border transition-all duration-500 ${
+            scrolled
+              ? "bg-white/80 backdrop-blur-xl border-rose/20 shadow-lg shadow-rose/5"
+              : "bg-white/60 backdrop-blur-md border-white/30 shadow-md shadow-black/5"
+          }`}
+        >
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2">
+            <Image
+              src="/logos/logo-transparent.webp"
+              alt="Booksociety Saarbrücken"
+              width={36}
+              height={36}
+              className="h-9 w-9 rounded-full object-cover"
+              priority
+            />
+            <span className="font-display text-lg text-charcoal hidden sm:block">booksociety</span>
+          </Link>
 
-            {/* Desktop Nav */}
-            <nav className="hidden md:flex items-center gap-8">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-sm font-medium text-charcoal/80 hover:text-wine transition-colors duration-200"
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <a
-                href={instagramUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram"
-                className="text-charcoal/80 hover:text-wine transition-colors duration-200"
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center gap-6">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-sm font-medium text-charcoal/70 hover:text-wine transition-colors"
               >
-                <InstagramIcon className="w-5 h-5" />
-              </a>
-            </nav>
-
-            {/* Mobile hamburger */}
-            <button
-              className="md:hidden p-2 text-charcoal/80 hover:text-wine transition-colors duration-200"
-              onClick={() => setMobileOpen(true)}
-              aria-label="Menü öffnen"
-            >
-              <Menu size={24} />
-            </button>
+                {link.label}
+              </Link>
+            ))}
           </div>
-        </div>
+
+          {/* Desktop CTA */}
+          <div className="hidden md:flex items-center gap-3">
+            <a
+              href={instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-charcoal/60 hover:text-wine transition-colors"
+              aria-label="Instagram"
+            >
+              <InstagramIcon className="w-5 h-5" />
+            </a>
+            <a
+              href="https://ig.me/m/booksociety.sb"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-wine text-white text-xs font-semibold px-4 py-2 rounded-xl hover:bg-wine/90 transition-colors"
+            >
+              <MessageCircle className="w-3.5 h-3.5" />
+              Kontakt
+            </a>
+          </div>
+
+          {/* Mobile hamburger */}
+          <button
+            className="md:hidden p-2 text-charcoal/80 hover:text-wine transition-colors"
+            onClick={() => setMobileOpen(true)}
+            aria-label="Menü öffnen"
+          >
+            <Menu size={22} />
+          </button>
+        </nav>
       </header>
 
       {/* Mobile fullscreen overlay */}
@@ -102,19 +105,18 @@ export function Navbar() {
           mobileOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        {/* Close button */}
-        <div className="flex items-center justify-between px-4 h-16">
+        <div className="flex items-center justify-between px-6 h-16">
           <Link href="/" onClick={() => setMobileOpen(false)}>
             <Image
-              src="/logos/logo-light.png"
+              src="/logos/logo-transparent.webp"
               alt="Booksociety Saarbrücken"
-              width={140}
-              height={40}
+              width={120}
+              height={120}
               className="h-10 w-auto"
             />
           </Link>
           <button
-            className="p-2 text-charcoal/80 hover:text-wine transition-colors duration-200"
+            className="p-2 text-charcoal/80 hover:text-wine transition-colors"
             onClick={() => setMobileOpen(false)}
             aria-label="Menü schließen"
           >
@@ -122,27 +124,28 @@ export function Navbar() {
           </button>
         </div>
 
-        {/* Mobile nav links */}
         <nav className="flex flex-col items-center justify-center flex-1 gap-8">
+          <Link href="/" onClick={() => setMobileOpen(false)} className="text-2xl font-display text-charcoal hover:text-wine transition-colors">
+            Startseite
+          </Link>
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               onClick={() => setMobileOpen(false)}
-              className="text-2xl font-display font-medium text-charcoal hover:text-wine transition-colors duration-200"
+              className="text-2xl font-display text-charcoal hover:text-wine transition-colors"
             >
               {link.label}
             </Link>
           ))}
           <a
-            href={instagramUrl}
+            href="https://ig.me/m/booksociety.sb"
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => setMobileOpen(false)}
-            className="flex items-center gap-2 text-charcoal/80 hover:text-wine transition-colors duration-200 mt-4"
+            className="mt-4 inline-flex items-center gap-2 bg-wine text-white font-semibold px-6 py-3 rounded-xl"
           >
-            <InstagramIcon className="w-[22px] h-[22px]" />
-            <span className="text-base font-medium">Instagram</span>
+            <MessageCircle className="w-4 h-4" />
+            Kontakt via Instagram
           </a>
         </nav>
       </div>

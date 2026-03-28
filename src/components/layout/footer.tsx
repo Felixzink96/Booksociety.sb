@@ -21,11 +21,11 @@ export function Footer() {
           <div className="flex flex-col gap-4">
             <Link href="/">
               <Image
-                src="/logos/logo-dark-white.png"
+                src="/logos/logo-dark-white.webp"
                 alt="Booksociety Saarbrücken"
                 width={140}
-                height={40}
-                className="h-10 w-auto"
+                height={140}
+                className="h-12 w-auto"
               />
             </Link>
             <p className="text-sm leading-relaxed text-white/60 max-w-xs">

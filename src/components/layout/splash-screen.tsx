@@ -211,11 +211,12 @@ export function SplashScreen() {
             transition={{ delay: 1.5, duration: 0.8 }}
           >
             <Image
-              src="/logos/logo-light.png"
+              src="/logos/logo-transparent.webp"
               alt="Booksociety Saarbrücken"
               width={192}
               height={192}
               priority
+              className="w-auto h-auto"
             />
           </motion.div>
 

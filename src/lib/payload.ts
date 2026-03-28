@@ -1,8 +1,17 @@
 import configPromise from "@payload-config";
 import { getPayload } from "payload";
 
+let payloadClient: Awaited<ReturnType<typeof getPayload>> | null = null;
+
 export async function getPayloadClient() {
-  return getPayload({ config: configPromise });
+  if (payloadClient) return payloadClient;
+  try {
+    payloadClient = await getPayload({ config: configPromise });
+    return payloadClient;
+  } catch (e) {
+    console.warn("[Payload] DB not connected yet - using fallbacks");
+    throw e;
+  }
 }
 
 export async function getEvents({ upcoming = true }: { upcoming?: boolean } = {}) {
