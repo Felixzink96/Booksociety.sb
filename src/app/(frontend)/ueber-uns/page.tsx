@@ -4,6 +4,7 @@ import { SectionReveal } from "@/components/ui/section-reveal";
 import { BotanicalLine } from "@/components/decorative/botanical-line";
 import { Accordion } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
+import { FaqJsonLd } from "@/components/seo/json-ld";
 
 export const metadata: Metadata = {
   title: "Ueber uns – Booksociety Saarbruecken",
@@ -37,6 +38,7 @@ const faqItems = [
 export default function UeberUnsPage() {
   return (
     <>
+      <FaqJsonLd items={faqItems} />
       {/* Geschichte */}
       <section className="bg-warm-sand/30 py-20 relative overflow-hidden">
         <BotanicalLine

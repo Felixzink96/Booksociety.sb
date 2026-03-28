@@ -13,17 +13,24 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  // TODO: Fetch from Payload CMS once DB is connected
-  const nextEvent = null;
-  const currentBook = null;
+  let nextEvent = null;
+  let currentBook = null;
+
+  try {
+    const { getNextEvent, getCurrentBook } = await import("@/lib/payload");
+    nextEvent = await getNextEvent();
+    currentBook = await getCurrentBook();
+  } catch {
+    // CMS not yet connected - use null fallbacks
+  }
 
   return (
     <>
       <ParallaxLeaves />
       <Hero />
       <AboutPreview />
-      <NextEvent event={nextEvent} />
-      <CurrentBook book={currentBook} />
+      <NextEvent event={nextEvent as any} />
+      <CurrentBook book={currentBook as any} />
       <InstagramFeed />
       <CTA />
     </>

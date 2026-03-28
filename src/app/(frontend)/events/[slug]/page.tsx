@@ -6,6 +6,7 @@ import { getEventBySlug } from "@/lib/payload";
 import { SectionReveal } from "@/components/ui/section-reveal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { EventJsonLd } from "@/components/seo/json-ld";
 
 type EventType = "lesekreis" | "buechertausch" | "leseabend" | "sonstiges";
 
@@ -61,7 +62,9 @@ export default async function EventDetailPage({ params }: PageProps) {
     typeof event.location?.lng === "number";
 
   return (
-    <section className="py-20">
+    <>
+      <EventJsonLd event={event} />
+      <section className="py-20">
       <div className="mx-auto max-w-3xl px-6">
         {/* Back link */}
         <SectionReveal>
@@ -161,7 +164,8 @@ export default async function EventDetailPage({ params }: PageProps) {
           </div>
         </SectionReveal>
       </div>
-    </section>
+      </section>
+    </>
   );
 }
 

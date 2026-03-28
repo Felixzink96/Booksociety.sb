@@ -1,5 +1,6 @@
 import { Playfair_Display, Inter } from "next/font/google";
 import "@/styles/globals.css";
+import { OrganizationJsonLd } from "@/components/seo/json-ld";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -16,7 +17,10 @@ const inter = Inter({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="de" className={`${playfair.variable} ${inter.variable}`}>
-      <body>{children}</body>
+      <body>
+        <OrganizationJsonLd />
+        {children}
+      </body>
     </html>
   );
 }
