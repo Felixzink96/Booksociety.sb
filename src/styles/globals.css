@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+@theme {
+  /* Design System Colors */
+  --color-rose: #F4C2C2;
+  --color-rose-light: #FFF5F5;
+  --color-dusty-rose: #DBA7A7;
+  --color-wine: #8B4557;
+  --color-charcoal: #2D2D2D;
+  --color-cream: #FDF6F0;
+  --color-warm-sand: #F7E6D8;
+  --color-botanical: #4A6741;
+  --color-gold: #B8860B;
+
+  /* Font Families */
+  --font-display: var(--font-playfair), Georgia, serif;
+  --font-body: var(--font-inter), system-ui, sans-serif;
+
+  /* Animations */
+  --animate-pulse-soft: pulse-soft 2s ease-in-out infinite;
+}
+
+@keyframes pulse-soft {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 15px rgba(225, 48, 108, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(225, 48, 108, 0.5);
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-cream text-charcoal font-body;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display;
+  }
+}
+
+@utility text-gradient-rose {
+  @apply bg-gradient-to-r from-rose to-dusty-rose bg-clip-text text-transparent;
+}
