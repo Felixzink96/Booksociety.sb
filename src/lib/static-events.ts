@@ -27,7 +27,7 @@ export const CURRENT_BOOK = {
   title: "Verity",
   author: "Colleen Hoover",
   description: "Ein packender Thriller über Wahrheit, Lügen und die dunklen Seiten des Schreibens. Unser erstes gemeinsames Buch — lest mindestens die ersten 50 Seiten bis zum 16. Mai!",
-  cover_image: null,
+  cover_image: { url: "/books/verity-cover.jpg" },
 };
 
 export const ALL_EVENTS = [FIRST_EVENT];
