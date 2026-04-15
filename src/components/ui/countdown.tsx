@@ -20,94 +20,48 @@ function getTimeLeft(targetDate: string): TimeLeft {
   };
 }
 
-function FlipUnit({ value, label }: { value: number; label: string }) {
-  const padded = String(value).padStart(2, "0");
-  const prevRef = useRef(padded);
-  const [flipping, setFlipping] = useState(false);
-  const [displayValue, setDisplayValue] = useState(padded);
-  const [nextValue, setNextValue] = useState(padded);
+function FlipCard({ value, label }: { value: number; label: string }) {
+  const current = String(value).padStart(2, "0");
+  const previousRef = useRef(current);
+  const [flip, setFlip] = useState(false);
 
   useEffect(() => {
-    if (padded !== prevRef.current) {
-      setNextValue(padded);
-      setFlipping(true);
-
-      const timer = setTimeout(() => {
-        setDisplayValue(padded);
-        setFlipping(false);
-        prevRef.current = padded;
-      }, 300);
-
-      return () => clearTimeout(timer);
+    if (previousRef.current !== current) {
+      setFlip(true);
+      const t = setTimeout(() => {
+        previousRef.current = current;
+        setFlip(false);
+      }, 600);
+      return () => clearTimeout(t);
     }
-  }, [padded]);
+  }, [current]);
 
   return (
     <div className="flex flex-col items-center gap-1.5">
-      <div className="relative w-16 h-20 md:w-20 md:h-24" style={{ perspective: "200px" }}>
-        {/* Top half - static, shows current value */}
-        <div className="absolute inset-x-0 top-0 h-1/2 bg-white rounded-t-xl overflow-hidden z-10">
-          <div className="absolute inset-0 flex items-end justify-center pb-[1px]">
-            <span className="text-2xl md:text-3xl font-display font-bold text-wine leading-none">
-              {displayValue}
-            </span>
-          </div>
+      <div className="flip-card-outer">
+        {/* Top half: always shows CURRENT number */}
+        <div className="flip-card-top">
+          <span>{current}</span>
         </div>
 
-        {/* Bottom half - static, shows current value */}
-        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-white rounded-b-xl overflow-hidden shadow-sm">
-          <div className="absolute inset-0 flex items-start justify-center pt-[1px]">
-            <span className="text-2xl md:text-3xl font-display font-bold text-wine/80 leading-none">
-              {displayValue}
-            </span>
-          </div>
+        {/* Bottom half: shows PREVIOUS number, then switches */}
+        <div className="flip-card-bottom">
+          <span>{flip ? previousRef.current : current}</span>
         </div>
 
-        {/* Flip card - top half flips down to reveal new number */}
-        {flipping && (
-          <>
-            {/* Flipping top half (old value, flips down) */}
-            <div
-              className="absolute inset-x-0 top-0 h-1/2 bg-white rounded-t-xl overflow-hidden z-20"
-              style={{
-                animation: "flipTop 0.3s ease-in forwards",
-                transformOrigin: "bottom center",
-                backfaceVisibility: "hidden",
-              }}
-            >
-              <div className="absolute inset-0 flex items-end justify-center pb-[1px]">
-                <span className="text-2xl md:text-3xl font-display font-bold text-wine leading-none">
-                  {prevRef.current}
-                </span>
-              </div>
-            </div>
+        {/* FLIP: top half with OLD number flips down */}
+        <div className={`flip-card-top-flip ${flip ? "flip-animate" : ""}`} key={current}>
+          <span>{previousRef.current}</span>
+        </div>
 
-            {/* New bottom half revealed underneath (new value) */}
-            <div
-              className="absolute inset-x-0 bottom-0 h-1/2 bg-white rounded-b-xl overflow-hidden z-20"
-              style={{
-                animation: "flipBottom 0.3s 0.15s ease-out forwards",
-                transformOrigin: "top center",
-                transform: "rotateX(90deg)",
-                backfaceVisibility: "hidden",
-              }}
-            >
-              <div className="absolute inset-0 flex items-start justify-center pt-[1px]">
-                <span className="text-2xl md:text-3xl font-display font-bold text-wine/80 leading-none">
-                  {nextValue}
-                </span>
-              </div>
-            </div>
-          </>
-        )}
+        {/* FLIP: bottom half with NEW number flips up into place */}
+        <div className={`flip-card-bottom-flip ${flip ? "flip-animate" : ""}`} key={`b-${current}`}>
+          <span>{current}</span>
+        </div>
 
-        {/* Center divider line */}
-        <div className="absolute inset-x-0 top-1/2 -translate-y-px h-[2px] bg-rose/30 z-30 rounded-full" />
-
-        {/* Subtle shadow at the fold */}
-        <div className="absolute inset-x-1 top-1/2 h-1 bg-gradient-to-b from-black/5 to-transparent z-20 pointer-events-none" />
+        {/* Divider line */}
+        <div className="flip-card-divider" />
       </div>
-
       <span className="text-[10px] md:text-xs font-body font-semibold uppercase tracking-[2px] text-charcoal/40">
         {label}
       </span>
@@ -125,21 +79,139 @@ export function Countdown({ targetDate }: { targetDate: string }) {
 
   return (
     <>
-      <style jsx global>{`
-        @keyframes flipTop {
-          0% { transform: rotateX(0deg); }
-          100% { transform: rotateX(-90deg); }
+      <style>{`
+        .flip-card-outer {
+          position: relative;
+          width: 4rem;
+          height: 5rem;
+          perspective: 300px;
         }
-        @keyframes flipBottom {
-          0% { transform: rotateX(90deg); }
-          100% { transform: rotateX(0deg); }
+        @media (min-width: 768px) {
+          .flip-card-outer {
+            width: 5rem;
+            height: 6rem;
+          }
+        }
+
+        .flip-card-outer span {
+          font-family: var(--font-playfair), Georgia, serif;
+          font-weight: 700;
+          font-size: 1.75rem;
+          color: #8B4557;
+          line-height: 1;
+        }
+        @media (min-width: 768px) {
+          .flip-card-outer span { font-size: 2.25rem; }
+        }
+
+        /* Top half - static */
+        .flip-card-top {
+          position: absolute;
+          top: 0; left: 0; right: 0;
+          height: 50%;
+          background: white;
+          border-radius: 0.75rem 0.75rem 0 0;
+          overflow: hidden;
+          display: flex;
+          align-items: flex-end;
+          justify-content: center;
+          z-index: 1;
+        }
+        .flip-card-top span {
+          transform: translateY(50%);
+        }
+
+        /* Bottom half - static */
+        .flip-card-bottom {
+          position: absolute;
+          bottom: 0; left: 0; right: 0;
+          height: 50%;
+          background: #fafafa;
+          border-radius: 0 0 0.75rem 0.75rem;
+          overflow: hidden;
+          display: flex;
+          align-items: flex-start;
+          justify-content: center;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+          z-index: 1;
+        }
+        .flip-card-bottom span {
+          transform: translateY(-50%);
+          opacity: 0.8;
+        }
+
+        /* Flip: top card falls down */
+        .flip-card-top-flip {
+          position: absolute;
+          top: 0; left: 0; right: 0;
+          height: 50%;
+          background: white;
+          border-radius: 0.75rem 0.75rem 0 0;
+          overflow: hidden;
+          display: flex;
+          align-items: flex-end;
+          justify-content: center;
+          transform-origin: bottom center;
+          backface-visibility: hidden;
+          z-index: 3;
+          transform: rotateX(0deg);
+        }
+        .flip-card-top-flip span {
+          transform: translateY(50%);
+        }
+        .flip-card-top-flip.flip-animate {
+          animation: flipDown 0.3s ease-in forwards;
+        }
+
+        /* Flip: bottom card rises up */
+        .flip-card-bottom-flip {
+          position: absolute;
+          bottom: 0; left: 0; right: 0;
+          height: 50%;
+          background: #fafafa;
+          border-radius: 0 0 0.75rem 0.75rem;
+          overflow: hidden;
+          display: flex;
+          align-items: flex-start;
+          justify-content: center;
+          transform-origin: top center;
+          backface-visibility: hidden;
+          z-index: 2;
+          transform: rotateX(90deg);
+        }
+        .flip-card-bottom-flip span {
+          transform: translateY(-50%);
+          opacity: 0.8;
+        }
+        .flip-card-bottom-flip.flip-animate {
+          animation: flipUp 0.3s 0.3s ease-out forwards;
+        }
+
+        /* Divider */
+        .flip-card-divider {
+          position: absolute;
+          left: 0; right: 0;
+          top: 50%;
+          height: 2px;
+          background: rgba(219, 167, 167, 0.3);
+          z-index: 5;
+          transform: translateY(-1px);
+        }
+
+        @keyframes flipDown {
+          from { transform: rotateX(0deg); }
+          to   { transform: rotateX(-90deg); }
+        }
+        @keyframes flipUp {
+          from { transform: rotateX(90deg); }
+          to   { transform: rotateX(0deg); }
         }
       `}</style>
       <div className="flex gap-3 md:gap-4 justify-center">
-        <FlipUnit value={timeLeft.days} label="Tage" />
-        <FlipUnit value={timeLeft.hours} label="Std" />
-        <FlipUnit value={timeLeft.minutes} label="Min" />
-        <FlipUnit value={timeLeft.seconds} label="Sek" />
+        <FlipCard value={timeLeft.days} label="Tage" />
+        <FlipCard value={timeLeft.hours} label="Std" />
+        <FlipCard value={timeLeft.minutes} label="Min" />
+        <FlipCard value={timeLeft.seconds} label="Sek" />
       </div>
     </>
   );

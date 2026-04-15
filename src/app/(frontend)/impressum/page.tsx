@@ -19,9 +19,9 @@ export default function ImpressumPage() {
               Angaben gemäß § 5 TMG
             </h2>
             <p>
-              [Name]<br />
-              [Straße Hausnummer]<br />
-              [PLZ] Saarbrücken<br />
+              Gina Tazarkesh<br />
+              Saargemünderstr. 175<br />
+              66130 Güdingen<br />
               Deutschland
             </p>
           </div>

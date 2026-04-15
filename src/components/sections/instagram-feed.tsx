@@ -18,13 +18,13 @@ export function InstagramFeed() {
         </SectionReveal>
 
         <SectionReveal delay={0.1}>
-          <div className="rounded-2xl overflow-hidden bg-white shadow-sm" style={{ minHeight: 480 }}>
+          <div className="rounded-2xl overflow-hidden bg-white shadow-sm">
             <iframe
               src="https://www.instagram.com/booksociety.sb/embed"
               width="100%"
-              height="480"
+              height="800"
               frameBorder="0"
-              scrolling="no"
+              scrolling="yes"
               allowTransparency
               className="w-full"
               title="Instagram @booksociety.sb"

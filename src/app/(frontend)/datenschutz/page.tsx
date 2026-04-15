@@ -16,6 +16,29 @@ export default function DatenschutzPage() {
         <div className="space-y-8 text-charcoal/80 leading-relaxed">
           <div>
             <h2 className="text-xl font-display font-bold text-charcoal mb-3">
+              Verantwortliche Stelle
+            </h2>
+            <p>
+              Gina Tazarkesh<br />
+              Saargemünderstr. 175<br />
+              66130 Güdingen<br />
+              Deutschland
+            </p>
+            <p className="mt-4">
+              Kontakt: Instagram{" "}
+              <a
+                href="https://www.instagram.com/booksociety.sb"
+                className="text-wine hover:underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                @booksociety.sb
+              </a>
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-xl font-display font-bold text-charcoal mb-3">
               Datenschutz auf einen Blick
             </h2>
             <p>
