@@ -5,6 +5,7 @@ import { CurrentBook } from "@/components/sections/current-book";
 import { InstagramFeed } from "@/components/sections/instagram-feed";
 import { CTA } from "@/components/sections/cta";
 import { ParallaxLeaves } from "@/components/decorative/parallax-leaves";
+import { FIRST_EVENT, CURRENT_BOOK } from "@/lib/static-events";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -13,15 +14,18 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  let nextEvent = null;
-  let currentBook = null;
+  // Try CMS first, fall back to static data
+  let nextEvent: any = FIRST_EVENT;
+  let currentBook: any = CURRENT_BOOK;
 
   try {
     const { getNextEvent, getCurrentBook } = await import("@/lib/payload");
-    nextEvent = await getNextEvent();
-    currentBook = await getCurrentBook();
+    const cmsEvent = await getNextEvent();
+    const cmsBook = await getCurrentBook();
+    if (cmsEvent) nextEvent = cmsEvent;
+    if (cmsBook?.title) currentBook = cmsBook;
   } catch {
-    // CMS not yet connected - use null fallbacks
+    // CMS not connected - static data is already set
   }
 
   return (
@@ -29,8 +33,8 @@ export default async function HomePage() {
       <ParallaxLeaves />
       <Hero />
       <AboutPreview />
-      <NextEvent event={nextEvent as any} />
-      <CurrentBook book={currentBook as any} />
+      <NextEvent event={nextEvent} />
+      <CurrentBook book={currentBook} />
       <InstagramFeed />
       <CTA />
     </>

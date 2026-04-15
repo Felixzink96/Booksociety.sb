@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Calendar, Clock, MapPin } from "lucide-react";
 import { getEventBySlug } from "@/lib/payload";
+import { ALL_EVENTS } from "@/lib/static-events";
 import { SectionReveal } from "@/components/ui/section-reveal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -32,16 +33,20 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
+  let event: any = null;
   try {
-    const event = await getEventBySlug(slug);
-    if (!event) return { title: "Event nicht gefunden" };
-    return {
-      title: `${event.title} – Booksociety Saarbrücken`,
-      description: `${typeLabels[(event.event_type as EventType) ?? "sonstiges"]} am ${formatDate(event.date as string)} in Saarbrücken.`,
-    };
+    event = await getEventBySlug(slug);
   } catch {
-    return { title: "Event – Booksociety Saarbrücken" };
+    // DB not connected
   }
+  if (!event) {
+    event = ALL_EVENTS.find((e) => e.slug === slug) ?? null;
+  }
+  if (!event) return { title: "Event nicht gefunden" };
+  return {
+    title: `${event.title} – Booksociety Saarbrücken`,
+    description: `${typeLabels[(event.event_type as EventType) ?? "sonstiges"]} am ${formatDate(event.date as string)} in Saarbrücken.`,
+  };
 }
 
 export default async function EventDetailPage({ params }: PageProps) {
@@ -51,7 +56,12 @@ export default async function EventDetailPage({ params }: PageProps) {
   try {
     event = await getEventBySlug(slug);
   } catch {
-    /* DB not connected yet */
+    /* DB not connected - try static events */
+  }
+
+  // Fallback to static events
+  if (!event) {
+    event = ALL_EVENTS.find((e) => e.slug === slug) ?? null;
   }
 
   if (!event) notFound();

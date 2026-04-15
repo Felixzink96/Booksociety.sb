@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getEvents } from "@/lib/payload";
+import { ALL_EVENTS } from "@/lib/static-events";
 import { SectionReveal } from "@/components/ui/section-reveal";
 import { EventCard } from "@/components/events/event-card";
 import { EventFilter } from "@/components/events/event-filter";
@@ -17,22 +18,18 @@ interface PageProps {
 export default async function EventsPage({ searchParams }: PageProps) {
   const { typ } = await searchParams;
 
-  let upcomingEvents: any[] = [];
+  let upcomingEvents: any[] = ALL_EVENTS;
   let pastEvents: any[] = [];
 
   try {
-    upcomingEvents = await getEvents({ upcoming: true });
+    const cmsUpcoming = await getEvents({ upcoming: true });
+    const cmsPast = await getEvents({ upcoming: false });
+    if (cmsUpcoming.length > 0) upcomingEvents = cmsUpcoming;
+    if (cmsPast.length > 0) pastEvents = cmsPast;
   } catch {
-    upcomingEvents = [];
+    // CMS not connected - static data already set
   }
 
-  try {
-    pastEvents = await getEvents({ upcoming: false });
-  } catch {
-    pastEvents = [];
-  }
-
-  // Filter by event type if URL param is set
   const filteredUpcoming = typ
     ? upcomingEvents.filter((e: any) => e.event_type === typ)
     : upcomingEvents;
