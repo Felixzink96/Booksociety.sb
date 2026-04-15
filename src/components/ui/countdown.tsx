@@ -109,7 +109,7 @@ export function Countdown({ targetDate }: { targetDate: string }) {
           position: absolute;
           top: 0; left: 0; right: 0;
           height: 50%;
-          background: white;
+          background: #f5f5f5;
           border-radius: 0.75rem 0.75rem 0 0;
           overflow: hidden;
           display: flex;
@@ -126,7 +126,7 @@ export function Countdown({ targetDate }: { targetDate: string }) {
           position: absolute;
           bottom: 0; left: 0; right: 0;
           height: 50%;
-          background: #fafafa;
+          background: #f0f0f0;
           border-radius: 0 0 0.75rem 0.75rem;
           overflow: hidden;
           display: flex;
@@ -145,7 +145,7 @@ export function Countdown({ targetDate }: { targetDate: string }) {
           position: absolute;
           top: 0; left: 0; right: 0;
           height: 50%;
-          background: white;
+          background: #f5f5f5;
           border-radius: 0.75rem 0.75rem 0 0;
           overflow: hidden;
           display: flex;
@@ -168,7 +168,7 @@ export function Countdown({ targetDate }: { targetDate: string }) {
           position: absolute;
           bottom: 0; left: 0; right: 0;
           height: 50%;
-          background: #fafafa;
+          background: #f0f0f0;
           border-radius: 0 0 0.75rem 0.75rem;
           overflow: hidden;
           display: flex;
@@ -187,15 +187,14 @@ export function Countdown({ targetDate }: { targetDate: string }) {
           animation: flipUp 0.3s 0.3s ease-out forwards;
         }
 
-        /* Divider */
+        /* Divider - exactly centered */
         .flip-card-divider {
           position: absolute;
           left: 0; right: 0;
-          top: 50%;
+          top: calc(50% - 1px);
           height: 2px;
-          background: rgba(219, 167, 167, 0.3);
+          background: rgba(219, 167, 167, 0.4);
           z-index: 5;
-          transform: translateY(-1px);
         }
 
         @keyframes flipDown {
