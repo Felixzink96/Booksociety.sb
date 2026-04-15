@@ -38,31 +38,33 @@ function FlipCard({ value, label }: { value: number; label: string }) {
 
   return (
     <div className="flex flex-col items-center gap-1.5">
-      <div className="flip-card-outer">
-        {/* Top half: always shows CURRENT number */}
-        <div className="flip-card-top">
+      <div className="flip-card">
+        {/* Top half */}
+        <div className="flip-half flip-top">
           <span>{current}</span>
         </div>
-
-        {/* Bottom half: shows PREVIOUS number, then switches */}
-        <div className="flip-card-bottom">
+        {/* Bottom half */}
+        <div className="flip-half flip-bottom">
           <span>{flip ? previousRef.current : current}</span>
         </div>
 
-        {/* FLIP: top half with OLD number flips down */}
-        <div className={`flip-card-top-flip ${flip ? "flip-animate" : ""}`} key={current}>
-          <span>{previousRef.current}</span>
-        </div>
+        {/* Animated: top flips down with old value */}
+        {flip && (
+          <div className="flip-half flip-top flip-top-anim" key={current}>
+            <span>{previousRef.current}</span>
+          </div>
+        )}
+        {/* Animated: bottom flips up with new value */}
+        {flip && (
+          <div className="flip-half flip-bottom flip-bottom-anim" key={`b-${current}`}>
+            <span>{current}</span>
+          </div>
+        )}
 
-        {/* FLIP: bottom half with NEW number flips up into place */}
-        <div className={`flip-card-bottom-flip ${flip ? "flip-animate" : ""}`} key={`b-${current}`}>
-          <span>{current}</span>
-        </div>
-
-        {/* Divider line */}
-        <div className="flip-card-divider" />
+        {/* Divider line - sits ON TOP of everything */}
+        <div className="flip-divider" />
       </div>
-      <span className="text-[10px] md:text-xs font-body font-semibold uppercase tracking-[2px] text-charcoal/40">
+      <span className="text-[10px] md:text-xs font-body font-semibold uppercase tracking-[3px] text-charcoal/35">
         {label}
       </span>
     </div>
@@ -80,121 +82,93 @@ export function Countdown({ targetDate }: { targetDate: string }) {
   return (
     <>
       <style>{`
-        .flip-card-outer {
+        .flip-card {
           position: relative;
-          width: 4rem;
-          height: 5rem;
-          perspective: 300px;
+          width: 4.5rem;
+          height: 5.5rem;
+          perspective: 400px;
         }
         @media (min-width: 768px) {
-          .flip-card-outer {
-            width: 5rem;
-            height: 6rem;
-          }
+          .flip-card { width: 5.5rem; height: 6.5rem; }
         }
 
-        .flip-card-outer span {
+        /* Shared half styles */
+        .flip-half {
+          position: absolute;
+          left: 0; right: 0;
+          height: 50%;
+          overflow: hidden;
+          display: flex;
+          justify-content: center;
+        }
+        .flip-half span {
           font-family: var(--font-playfair), Georgia, serif;
           font-weight: 700;
-          font-size: 1.75rem;
+          font-size: 2rem;
           color: #8B4557;
           line-height: 1;
+          position: absolute;
         }
         @media (min-width: 768px) {
-          .flip-card-outer span { font-size: 2.25rem; }
+          .flip-half span { font-size: 2.5rem; }
         }
 
-        /* Top half - static */
-        .flip-card-top {
-          position: absolute;
-          top: 0; left: 0; right: 0;
-          height: 50%;
-          background: #f5f5f5;
+        /* Top half */
+        .flip-top {
+          top: 0;
+          background: white;
           border-radius: 0.75rem 0.75rem 0 0;
-          overflow: hidden;
-          display: flex;
           align-items: flex-end;
-          justify-content: center;
           z-index: 1;
+          border-bottom: none;
         }
-        .flip-card-top span {
+        .flip-top span {
+          bottom: 0;
           transform: translateY(50%);
         }
 
-        /* Bottom half - static */
-        .flip-card-bottom {
-          position: absolute;
-          bottom: 0; left: 0; right: 0;
-          height: 50%;
-          background: #f0f0f0;
+        /* Bottom half - very slightly darker */
+        .flip-bottom {
+          bottom: 0;
+          background: #fafafa;
           border-radius: 0 0 0.75rem 0.75rem;
-          overflow: hidden;
-          display: flex;
           align-items: flex-start;
-          justify-content: center;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.06);
           z-index: 1;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.04);
         }
-        .flip-card-bottom span {
+        .flip-bottom span {
+          top: 0;
           transform: translateY(-50%);
-          opacity: 0.8;
+          opacity: 0.85;
         }
 
-        /* Flip: top card falls down */
-        .flip-card-top-flip {
+        /* The divider line - highest z-index, always visible */
+        .flip-divider {
           position: absolute;
-          top: 0; left: 0; right: 0;
-          height: 50%;
-          background: #f5f5f5;
-          border-radius: 0.75rem 0.75rem 0 0;
-          overflow: hidden;
-          display: flex;
-          align-items: flex-end;
-          justify-content: center;
+          left: 0; right: 0;
+          top: 50%;
+          transform: translateY(-0.5px);
+          height: 1px;
+          background: rgba(0, 0, 0, 0.08);
+          z-index: 10;
+          pointer-events: none;
+        }
+
+        /* Flip animation: top falls down */
+        .flip-top-anim {
+          z-index: 3;
           transform-origin: bottom center;
           backface-visibility: hidden;
-          z-index: 3;
-          transform: rotateX(0deg);
-        }
-        .flip-card-top-flip span {
-          transform: translateY(50%);
-        }
-        .flip-card-top-flip.flip-animate {
           animation: flipDown 0.3s ease-in forwards;
         }
 
-        /* Flip: bottom card rises up */
-        .flip-card-bottom-flip {
-          position: absolute;
-          bottom: 0; left: 0; right: 0;
-          height: 50%;
-          background: #f0f0f0;
-          border-radius: 0 0 0.75rem 0.75rem;
-          overflow: hidden;
-          display: flex;
-          align-items: flex-start;
-          justify-content: center;
-          transform-origin: top center;
-          backface-visibility: hidden;
+        /* Flip animation: bottom rises up */
+        .flip-bottom-anim {
           z-index: 2;
+          transform-origin: top center;
           transform: rotateX(90deg);
-        }
-        .flip-card-bottom-flip span {
-          transform: translateY(-50%);
-          opacity: 0.8;
-        }
-        .flip-card-bottom-flip.flip-animate {
+          backface-visibility: hidden;
           animation: flipUp 0.3s 0.3s ease-out forwards;
-        }
-
-        /* Divider - exactly centered */
-        .flip-card-divider {
-          position: absolute;
-          left: 0; right: 0;
-          top: calc(50% - 1px);
-          height: 2px;
-          background: rgba(219, 167, 167, 0.4);
-          z-index: 5;
         }
 
         @keyframes flipDown {
