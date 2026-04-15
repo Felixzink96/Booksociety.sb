@@ -9,7 +9,7 @@ interface BookProps {
   title: string;
   author: string;
   description?: string;
-  cover_image?: string;
+  cover_image?: string | { url: string } | null;
 }
 
 interface CurrentBookProps {
@@ -53,7 +53,7 @@ export function CurrentBook({ book }: CurrentBookProps) {
             >
               {book.cover_image ? (
                 <Image
-                  src={book.cover_image}
+                  src={typeof book.cover_image === "string" ? book.cover_image : book.cover_image.url}
                   alt={`Cover: ${book.title}`}
                   width={192}
                   height={288}
