@@ -12,14 +12,22 @@ export const FIRST_EVENT = {
   event_type: "lesekreis" as const,
   description: `Unser allererstes Buchklub-Treffen! Wir starten mit "Verity" von Colleen Hoover.
 
-Bitte habt das Buch bis zum Treffen besorgt und mindestens die ersten 50 Seiten gelesen. Wir freuen uns auf eine spannende Diskussion!
-
-Verity ist ein packender Thriller über eine angehende Schriftstellerin, die dunkle Geheimnisse in den unveröffentlichten Manuskripten einer berühmten Autorin entdeckt. Perfekt für unseren ersten gemeinsamen Leseabend.`,
+Bitte habt das Buch bis zum Treffen besorgt und mindestens die ersten 50 Seiten gelesen. Wir freuen uns auf eine spannende Diskussion!`,
   location: {
     name: "Staatstheater Saarbrücken",
     address: "Schillerplatz 1, 66111 Saarbrücken",
     lat: 49.2344,
     lng: 6.9965,
+  },
+  book: {
+    title: "Verity",
+    author: "Colleen Hoover",
+    cover: "/books/verity-cover.jpg",
+    publisher: "dtv Verlag",
+    pages: 368,
+    genre: "Thriller / Romance",
+    readUntil: "Mindestens die ersten 50 Seiten",
+    description: "Lowen Ashleigh ist eine angehende Schriftstellerin, die kurz vor dem finanziellen Ruin steht. Da erhält sie das Angebot, die erfolgreiche Buchreihe der Bestsellerautorin Verity Crawford zu Ende zu schreiben, die nach einem Unfall nicht mehr arbeiten kann. In Veritys Haus findet Lowen ein unveröffentlichtes Manuskript — eine schonungslose Autobiografie voller verstörender Geständnisse. Je mehr Lowen liest, desto stärker gerät ihr Weltbild ins Wanken.",
   },
 };
 
